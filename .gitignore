@@ -1,0 +1,56 @@
+# ---------------------------------------------------------
+# Standard .gitignore for Shopify Theme Projects
+# ---------------------------------------------------------
+
+# Shopify CLI local files
+.shopify/
+*.log
+*.tmp
+
+# Environment files
+.env
+.env.*.local
+
+# Node dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build output
+dist/
+build/
+public/
+.cache/
+.eslintcache
+.stylelintcache
+
+# OS files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Editor folders
+.vscode/
+.idea/
+
+# PhpStorm
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Sass cache
+.sass-cache/
+
+# Generated assets (for bundlers)
+assets/*.map
+
+# Shopify Theme Check cache
+theme-check/
+.theme-check.yml
+
+# ---------------------------------------------------------
+# END
+# ---------------------------------------------------------
