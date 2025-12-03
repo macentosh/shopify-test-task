@@ -1,7 +1,9 @@
 {% assign selected_collection = collections[section.settings.collection] %}
 {% assign cart_product_ids = cart.items | map: 'product_id' %}
 
-<section class="featured-products page-width page-width-desktop">
+<section class="featured-products page-width page-width-desktop"
+         data-section-id="{{ section.id }}"
+         data-section-type="featured-products">
   {% if section.settings.heading != blank %}
     <h2 class="featured-products__heading">{{ section.settings.heading }}</h2>
   {% endif %}
@@ -35,20 +37,31 @@
             </a>
           </h3>
 
-          <div class="featured-products__price">
-            {{ product.price | money }}
-          </div>
+	        {%- assign variant = product.selected_or_first_available_variant | default: product.variants.first -%}
+	        {%- if variant -%}
+		        {% form 'product', product, class: 'featured-products__form' %}
+			        <input type="hidden" name="id" value="{{ variant.id }}">
 
-          {% form 'product', product, class: 'featured-products__form' %}
-            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+			        <button type="submit"
+			                class="featured-products__button{% unless variant.available %} featured-products__button--disabled{% endunless %}"
+							        {% unless variant.available %}disabled aria-disabled="true"{% endunless %}>
+                <span class="featured-products__button-label" data-label-default="Add to cart" data-label-adding="Adding…"
+                      data-label-added="Added">
+                  {% unless variant.available %}
+	                  Sold out
+                  {% else %}
+	                  Add to cart
+                  {% endunless %}
+                </span>
 
-            <button
-              type="submit"
-              class="featured-products__button"
-            >
-              {{ 'products.product.add_to_cart' | t | default: 'Add to cart' }}
-            </button>
-          {% endform %}
+				        {% if variant.available %}
+					        <span class="featured-products__button-price">
+                    — {{ variant.price | money }}
+                  </span>
+				        {% endif %}
+			        </button>
+		        {% endform %}
+	        {%- endif -%}
         </article>
       {% endfor %}
     </div>
@@ -89,3 +102,5 @@
   ]
 }
 {% endschema %}
+
+{{ 'featured-products.js' | asset_url | script_tag }}
