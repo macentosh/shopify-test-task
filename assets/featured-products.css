@@ -38,14 +38,18 @@
 }
 
 .featured-products__title-link {
-    display: inline-block;
     font-size: 22px;
     line-height: 1.9;
     font-weight: 700;
     margin-top: 30px;
     margin-bottom: 11px;
+    padding: 0 8px;
     color: var(--textColor);
     text-decoration: none;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
 }
 
 .featured-products__button {
