@@ -31,11 +31,9 @@
             {% endif %}
           </a>
 
-          <h3 class="featured-products__title">
-            <a href="{{ product.url }}" class="featured-products__title-link">
-              {{ product.title }}
-            </a>
-          </h3>
+          <a href="{{ product.url }}" class="featured-products__title-link">
+            {{ product.title }}
+          </a>
 
 	        {%- assign variant = product.selected_or_first_available_variant | default: product.variants.first -%}
 	        {%- if variant -%}
@@ -102,5 +100,7 @@
   ]
 }
 {% endschema %}
+
+{{ 'featured-products.css' | asset_url | stylesheet_tag }}
 
 {{ 'featured-products.js' | asset_url | script_tag }}
